@@ -7,10 +7,16 @@ import { FooterComponent } from './footer/footer.component'
 import { ListComponent } from './songlist/songlist.component'
 import { SearchSongComponent } from './searchsong/searchsong.component'
 import { RouterModule, Routes } from '@angular/router'
+import { HttpClientModule } from '@angular/common/http';
+import {UserService} from './users/user.service'
+import { UsersComponent } from './users/users.component'
+import {HeaderService} from './header/header.service'
 
 const routes: Routes =[
   {path:'searchsong', component:SearchSongComponent},
-  {path:'songlist', component:ListComponent}
+  {path:'songlist', component:ListComponent},
+  {path:'callback/?error=access_denied', component:UsersComponent},
+
 ]
 @NgModule({
   declarations: [
@@ -18,13 +24,15 @@ const routes: Routes =[
     HeaderComponent,
     FooterComponent,
     ListComponent,
-    SearchSongComponent
+    SearchSongComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [UserService,HeaderService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
