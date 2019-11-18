@@ -10,4 +10,7 @@ export class UserService{
   getLogin(): Observable<any>{
     return this.http.get<any>('http://localhost:8080/api/login')
   }
+  postLogin(tokken:string): Observable<any>{
+    return this.http.post<any>('http://localhost:8080/api/loginSuccesfull',tokken)
+  }
 }
