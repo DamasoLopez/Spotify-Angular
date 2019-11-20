@@ -4,13 +4,18 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class UserService{
-
-  constructor(private http: HttpClient){}
+  httpu:HttpClient
+  constructor(private http: HttpClient){
+    this.httpu=http
+  }
   redirecturl;
   getLogin(): Observable<any>{
     return this.http.get<any>('http://localhost:8080/api/login')
   }
   postLogin(tokken:string): Observable<any>{
-    return this.http.post<any>('http://localhost:8080/api/loginSuccesfull',tokken)
+    this.httpu.get<any>('http://localhost:8080/api/login')
+    this.redirecturl='http://localhost:8080/api/loginSuccesfull/'+tokken
+    console.log(this.redirecturl);
+    return this.http.get<any>(this.redirecturl)
   }
 }

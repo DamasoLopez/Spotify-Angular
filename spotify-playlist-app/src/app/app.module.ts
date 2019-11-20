@@ -8,14 +8,13 @@ import { ListComponent } from './songlist/songlist.component'
 import { SearchSongComponent } from './searchsong/searchsong.component'
 import { RouterModule, Routes } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http';
-import {UserService} from './users/user.service'
-import { UsersComponent } from './users/users.component'
-import {HeaderService} from './header/header.service'
+import {UserService} from './users/user.service';
+import { UsersComponent } from './users/users.component';
+import { Globals } from './globals';
 
 const routes: Routes =[
   {path:'searchsong', component:SearchSongComponent},
-  {path:'songlist', component:ListComponent},
-  {path:'callback/?error=access_denied', component:UsersComponent},
+  {path:'songlist', component:ListComponent}
 
 ]
 @NgModule({
@@ -32,7 +31,7 @@ const routes: Routes =[
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [UserService,HeaderService],
+  providers: [UserService,Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
