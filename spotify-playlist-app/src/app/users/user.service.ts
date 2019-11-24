@@ -1,21 +1,40 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-
+import {map} from 'rxjs/operators'
 @Injectable()
 export class UserService{
-  httpu:HttpClient
+    globals;
+    redirecturl;
   constructor(private http: HttpClient){
-    this.httpu=http
+    
   }
-  redirecturl;
+
   getLogin(): Observable<any>{
-    return this.http.get<any>('http://localhost:8080/api/login')
+    return this.http.get<any>('http://localhost:8080/api/user/login')
   }
-  postLogin(tokken:string): Observable<any>{
-    this.httpu.get<any>('http://localhost:8080/api/login')
-    this.redirecturl='http://localhost:8080/api/loginSuccesfull/'+tokken
-    console.log(this.redirecturl);
-    return this.http.get<any>(this.redirecturl)
+  postLogin(token:string): Observable<any>{
+
+    return this.http.get<any>('http://localhost:8080/api/user/loginSuccesfull/'+token).pipe(
+      map(response=>{
+        sessionStorage.removeItem
+        sessionStorage.removeItem('accessToken')
+        sessionStorage.removeItem('refreshToken')
+        sessionStorage.setItem('accessToken',response['access_token'])
+        sessionStorage.setItem('refreshToken',response['refresh_token'])
+        return response;
+
+      })
+    )
+  }
+  getUser(token:string,refreshToken:string): Observable<any>{
+
+    return this.http.get<any>('http://localhost:8080/api/user/getUserId/'+token+'/'+refreshToken).pipe(
+      map(response=>{
+        sessionStorage.setItem('userId',response['userId'])
+        return response;
+
+      })
+    )
   }
 }

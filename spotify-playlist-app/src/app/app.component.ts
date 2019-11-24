@@ -1,6 +1,6 @@
 import { Component,OnInit,Output } from '@angular/core';
 import {UserService} from './users/user.service'
-import {Globals} from './globals'
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,18 +8,23 @@ import {Globals} from './globals'
 })
 export class AppComponent implements OnInit{
   title = 'Bienvenido a spotify-playlist-app';
-  globals: Globals;
+
   url;
-  userCode={};
+  userCode;
   urlTree;
-  constructor(private userService:UserService,globals: Globals){
-    this.globals=globals;
+  constructor(private userService:UserService){
       this.userCode=this.getAllUrlParams(window.location.href);
-    if(this.userCode['code']==null ){
+
+    if(this.userCode['code']==null  && sessionStorage.length==0){
       this.getLogin();
     }else{
+      if(sessionStorage.length==0){
+        this.postLogin();
 
-       this.userService.postLogin(this.userCode['code']);
+      }
+
+
+
     }
   }
   ngOnInit(){
@@ -31,11 +36,30 @@ export class AppComponent implements OnInit{
     this.userService.getLogin().subscribe(
            result => {
                    this.url=result.url
-                   this.globals.url=result.url;
-                   console.log(this.url);
            }
 
        );
+  }
+  postLogin(){
+    this.userService.postLogin(this.userCode['code']).subscribe(
+           result => {
+             if(sessionStorage.getItem('accessToken')!="null" && sessionStorage.getItem('refreshToken')!="null" && sessionStorage.getItem('userId')==null){
+                  this.getUser();
+              }
+           }
+
+       );
+
+
+  }
+  getUser(){
+    this.userService.getUser(sessionStorage.getItem('accessToken'), sessionStorage.getItem('refreshToken')).subscribe(
+        result => {
+
+        }
+
+       );
+
   }
    getAllUrlParams(url) {
   var queryString = url ? url.split('?')[1] : window.location.search.slice(1);

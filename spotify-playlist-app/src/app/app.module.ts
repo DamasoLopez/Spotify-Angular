@@ -10,8 +10,11 @@ import { RouterModule, Routes } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http';
 import {UserService} from './users/user.service';
 import { UsersComponent } from './users/users.component';
-import { Globals } from './globals';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {SearchSongService} from './searchsong/searchsong.service'
+import {SongListService} from './songlist/songlist.service'
 const routes: Routes =[
   {path:'searchsong', component:SearchSongComponent},
   {path:'songlist', component:ListComponent}
@@ -29,9 +32,12 @@ const routes: Routes =[
   imports: [
     BrowserModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [UserService,Globals],
+  providers: [UserService,SearchSongService,SongListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

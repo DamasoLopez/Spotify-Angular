@@ -1,20 +1,51 @@
-<form>
-  <div class="form-group border border-dark">
-    <label for="Playlistname">Name of the Playlist</label>
-    <input type="text" class="form-control" id="Playlistname" aria-describedby="Playlistname" placeholder="Enter a Playlistname">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 <br>
-<form>
-  <div class="form-group border border-dark">
-    <label for="InputEmail">Email address</label>
-    <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+<div id="searchcontainer" class="center col-md-6 col-sm-3 ">
+  <form [formGroup]="playlist"(ngSubmit)="savePlayList()" class="was-validated" >
+    <div class="form-group" [ngClass]="{'has-danger': !playlist.get('playlistname').valid}">
+      <label for="playlistname">Nombre de la  Playlist:</label>
+      <input type="text" class="form-control is-invalid" id="Playlistname" aria-describedby="Playlistname"
+      placeholder="Introduce el nombre de la Playlist" formControlName="playlistname" required>
+      <div *ngIf="!playlist.controls['playlistname'].valid" class="invalid-feedback">
+        Nombre de la PlayList necesario.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!playlist.controls['playlistname'].valid">Crear</button>
+  </form>
+  <br>
+  <br>
+  <form [formGroup]="songList" (ngSubmit)="searchSong()" class="was-validated">
+    <div  class="form-group " [ngClass]="{'has-danger': !songList.controls['email'].valid}">
+      <label for="InputEmail">Correo electronico:</label>
+      <input type="email" class="form-control is-invalid" id="InputEmail" aria-describedby="emailHelp"
+      placeholder="Introduce tu correo electronico" formControlName="email" required>
+      <small id="emailHelp" class="form-text text-muted">No compartiremos su correo electrónico con nadie.</small>
+      <div *ngIf="!songList.controls['email'].valid" class="invalid-feedback">
+        Correo con estructura correcta necesario.
+      </div>
+    </div>
+    <div class="form-group " [ngClass]="{'has-danger': !songList.controls['songName'].valid}">
+      <label for="SearchSong">Nombre de la canción:</label>
+      <input type="text" class="form-control is-invalid" id="SearchSong" placeholder="Cancion" formControlName="songName" required >
+      <div *ngIf="!songList.controls['songName'].valid" class="invalid-feedback">
+        Introduce minimo 3 caracteres.
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!songList.controls['songName'].valid || !songList.controls['email'].valid">Buscar</button>
+
+  </form>
+  <div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+    Playlist
+  </button>
+  <div class="dropdown-menu" aria-labelledby="PlayList"  placeholder="PlayList" *ngFor="let plyListName of listPlayList">
+    <a class="dropdown-item" href="#">{{plyListName}}</a>
   </div>
-  <div class="form-group">
-    <label for="SearchSong">Song</label>
-    <input type="text" class="form-control" id="SearchSong" placeholder="Song">
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</div>
+
+  <br>
+  <ul id="tabla" class="list-group" *ngFor="let Song of listSongList" >
+  <li class="list-group-item" >{{Song}}</li>
+  </ul>
+
+</div>
+<br>
