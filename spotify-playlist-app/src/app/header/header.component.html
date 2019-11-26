@@ -10,13 +10,16 @@
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/songlist" >Listado</a>
+        <a class="nav-link" routerLink="/songlist" *ngIf="!login">Listado</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/searchsong">Buscar Canción</a>
+        <a class="nav-link" routerLink="/searchsong" *ngIf="!login">Buscar Canción</a>
       </li>
       <li class="nav-item" routerLinkActive="active" >
-        <a class="nav-link" href={{data}}>Login</a>
+        <a class="nav-link" *ngIf="login" href={{data}}>Login</a>
+      </li>
+      <li class="nav-item" routerLinkActive="active" >
+        <a class="nav-link" *ngIf="!login" href="#" (click)="procesarClic()">Logout</a>
       </li>
     </ul>
   </div>

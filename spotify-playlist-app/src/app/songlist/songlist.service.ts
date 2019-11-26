@@ -10,6 +10,6 @@ export class SongListService{
   }
   GetAllPlayList(): Observable<any>{
 
-    return this.http.get<any>('http://localhost:8080/api/playlist/getAllPlaylist/'+sessionStorage.getItem('accessToken')+'/'+sessionStorage.getItem('refreshToken'))
+    return this.http.get<any>('http://localhost:8080/api/playlist/getAllPlaylist/'+sessionStorage.getItem('accessToken')+'/'+sessionStorage.getItem('refreshToken')+'/'+sessionStorage.getItem('userId') )
   }
 }

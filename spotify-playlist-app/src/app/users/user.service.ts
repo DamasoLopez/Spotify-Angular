@@ -4,10 +4,9 @@ import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators'
 @Injectable()
 export class UserService{
-    globals;
-    redirecturl;
+
   constructor(private http: HttpClient){
-    
+
   }
 
   getLogin(): Observable<any>{

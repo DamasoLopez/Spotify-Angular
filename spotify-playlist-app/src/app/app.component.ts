@@ -6,12 +6,12 @@ import {UserService} from './users/user.service'
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-  title = 'Bienvenido a spotify-playlist-app';
+export class AppComponent {
+  title = 'Spotify-playlist-app';
 
   url;
   userCode;
-  urlTree;
+
   constructor(private userService:UserService){
       this.userCode=this.getAllUrlParams(window.location.href);
 
@@ -23,15 +23,9 @@ export class AppComponent implements OnInit{
 
       }
 
-
-
     }
   }
-  ngOnInit(){
 
-
-
-      }
   getLogin(){
     this.userService.getLogin().subscribe(
            result => {
@@ -47,9 +41,7 @@ export class AppComponent implements OnInit{
                   this.getUser();
               }
            }
-
        );
-
 
   }
   getUser(){
@@ -57,7 +49,6 @@ export class AppComponent implements OnInit{
         result => {
 
         }
-
        );
 
   }

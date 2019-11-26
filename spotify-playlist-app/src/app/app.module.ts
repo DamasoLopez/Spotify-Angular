@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {SearchSongService} from './searchsong/searchsong.service'
 import {SongListService} from './songlist/songlist.service'
+
 const routes: Routes =[
   {path:'searchsong', component:SearchSongComponent},
   {path:'songlist', component:ListComponent}

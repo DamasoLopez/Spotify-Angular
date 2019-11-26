@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import {SongListService} from './songlist.service'
+
 @Component({
   selector: 'app-songlist',
   templateUrl: './songlist.component.html',
@@ -7,6 +8,7 @@ import {SongListService} from './songlist.service'
 })
 export class ListComponent implements OnInit{
   listPlayList:string[]=[];
+
   constructor(private songListService:SongListService){
 
   }
